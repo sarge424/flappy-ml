@@ -1,6 +1,6 @@
 let ctx
 let frame = -1
-let framerate = 10000
+let framerate = 100
 let msPerFrame = 1000 / framerate
 
 const birdsX = 200
@@ -43,7 +43,7 @@ let arena = {
             pipes = pipes.filter(pipe => pipe.x + pipe.width > 0)
 
             closestPipe = pipes.filter(pipe => !pipe.passed)[0]
-            closestPipe.color = '#F40'
+            closestPipe.color = '#F27'
         }
 
         let lastAlive = birds[0]
@@ -132,7 +132,10 @@ function createPopulation(parent){
         birdID++
 
         if(parent instanceof Bird){
-            newBird.brain = parent.brain.copy()
+            if(i <= population/4){
+                newBird.brain = parent.brain.copy()
+                newBird.color = 'red'
+            }
         }
 
         birds.push(newBird)

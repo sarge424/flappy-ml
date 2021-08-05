@@ -2,7 +2,7 @@ class Pipe {
     constructor(x, v){
         this.x = x
         this.v = v
-        this.gap = 175
+        this.gap = 125
         this.width = 100
 
         this.passed = false
@@ -24,7 +24,7 @@ class Pipe {
             this.passed = true
             this.color = '#0F0'
             closestPipe = pipes.filter(pipe => !pipe.passed)[0]
-            closestPipe.color = '#F40'
+            closestPipe.color = '#F27'
         }
 
         this.draw(ctx)

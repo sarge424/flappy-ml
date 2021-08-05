@@ -21,6 +21,8 @@ class Bird {
 
         this.score = 0
         this.fitness = 0
+
+        this.color = 'yellow'
     }
 
     update(ctx){
@@ -66,7 +68,7 @@ class Bird {
 
     draw(ctx){
         ctx.beginPath()
-        ctx.fillStyle = 'yellow'
+        ctx.fillStyle = this.color
         ctx.arc(...this.p.lst(), this.rad, 0, 2*Math.PI)
         ctx.fill()
     }
