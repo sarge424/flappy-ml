@@ -26,14 +26,12 @@ class NeuralNetwork {
         this.nodes = layers
 
         this.theta = []
-        this.params = 0
 
         for(let i = 1; i < this.nodes.length; i++){
             //initialize each theta from t_2 to t_L
             let newTheta = new Matrix(this.nodes[i], this.nodes[i-1] + 1)
             this.theta.push(newTheta)
             newTheta.randomize()
-            this.params += this.nodes[i] * (this.nodes[i-1] + 1)
         }
     }
 
@@ -72,5 +70,30 @@ class NeuralNetwork {
         }
 
         return newNet
+    }
+
+    // save the net as a json string
+    save(agentID){
+        return JSON.stringify({
+            id: agentID,
+            nodes: this.nodes,
+            theta: this.theta.map(t => t.data)
+        })
+    }
+
+    // load a JSON string to this net
+    load(json){
+        const obj = JSON.parse(json)
+
+        this.nodes = obj.nodes
+
+        this.theta = []
+
+        for(let i = 1; i < this.nodes.length; i++){
+            //initialize each theta from t_2 to t_L
+            let newTheta = new Matrix(this.nodes[i], this.nodes[i-1] + 1)
+            this.theta.push(newTheta)
+            newTheta.load(obj.theta[i-1])
+        }
     }
 }

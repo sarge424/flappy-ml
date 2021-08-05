@@ -106,4 +106,13 @@ class Matrix {
 
         return newMat
     }
+
+    // loads values from an array into data
+    load(arr) {
+        for(let i = 0; i < this.r; i++){
+            for(let j = 0; j < this.c; j++){
+                this.data[i][j] = arr[i][j]
+            }
+        }
+    }
 }

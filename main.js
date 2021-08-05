@@ -1,6 +1,6 @@
 let ctx
 let frame = -1
-let framerate = 50
+let framerate = 100
 let msPerFrame = 1000 / framerate
 
 const birdsX = 200
@@ -23,7 +23,7 @@ let arena = {
 
         this.c.width = this.dim.x
         this.c.height = this.dim.y
-
+        
         createPopulation()
 
         this.interval = setInterval(arena.update, msPerFrame)
@@ -45,7 +45,11 @@ let arena = {
             closestPipe = pipes.filter(pipe => !pipe.passed)[0]
         }
 
-        let lastAlive = birds[0]
+        let lastAlive
+        if(birds.filter(bird => bird.alive).length == 0)
+            lastAlive = birds.filter(bird => bird.alive)[0]
+        else
+            lastAlive = null 
 
         for(pipe of pipes){
             pipe.update(ctx)
@@ -93,7 +97,8 @@ let arena = {
         ctx.fillStyle = 'black'
         ctx.fillText(`Generation: ${gen}`, 3, 20)
         ctx.fillText(`Alive currently: ${birds.filter(bird => bird.alive).length}/${population}`, 3, 40)
-        ctx.fillText(`Score: ${currentScore}`, 3, 60);
+        ctx.fillText(`Score: ${currentScore}`, 3, 60)
+        ctx.fillText(`ID: ${gen == 'Loaded bird' ? '>>>':''}${birds.filter(bird => bird.alive).length == 1 ? birds.filter(bird => bird.alive)[0].id: ''}`, 3, 80)
     }
 }
 
@@ -128,6 +133,30 @@ function createPopulation(parent){
 
         birds.push(newBird)
     }
+}
+
+function generateJSON(){
+    console.log('Generating JSON...');
+    const textArea = document.getElementById('jsonArea')
+    lastAlive = birds.filter(bird => bird.alive)[0]
+    textArea.value = lastAlive.brain.save(lastAlive.id)
+}
+
+function getJSON(){
+    return document.getElementById('jsonArea').value
+}
+
+function loadBird(){
+    let json = getJSON()
+    console.log(json);
+    let strongBird = new Bird(`${JSON.parse(json).id}`, birdsX, 250, frame)
+    strongBird.brain.load(json)
+    
+    gen = 'Loaded bird'
+    birds = []
+    currentScore = 0
+
+    birds.push(strongBird)
 }
 
 arena.start()
