@@ -1,6 +1,6 @@
 let ctx
 let frame = -1
-let framerate = 100
+let framerate = 50
 let msPerFrame = 1000 / framerate
 
 const birdsX = 200
