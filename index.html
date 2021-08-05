@@ -1,4 +1,16 @@
 <html>
+    <head>
+        <title>FlappyAI</title>
+        <style>
+            canvas, button, textarea {
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+        </style>
+    </head>
     <body>
         <canvas id='canvas' style='background-color: #00a2e8'>Error</canvas>
         <img src='spritesheet.png' id='ss' width='0' height='0'>
@@ -9,8 +21,10 @@
         <script src='bird.js'></script>
         <script src='main.js'></script>
         
-        <button onclick='generateJSON()'>Generate</button>
-        <button onclick='loadBird()'>Load</button>
-        <textarea id='jsonArea' placeholder='Click generate to save a network' cols='100' rows='3' style='resize:none'></textarea>
+        <div>
+            <button onclick='generateJSON()'>Generate</button>
+            <button onclick='loadBird()'>Load</button>
+        </div>
+            <textarea id='jsonArea' placeholder='Click generate to save a network' cols='100' rows='3' style='resize:none'></textarea>
     </body>
 </html>
