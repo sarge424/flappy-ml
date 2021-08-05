@@ -149,7 +149,7 @@ function getJSON(){
 function loadBird(){
     let json = getJSON()
     console.log(json);
-    let strongBird = new Bird(`${JSON.parse(json).id}`, birdsX, 250, frame)
+    let strongBird = new Bird(`${JSON.parse(json).id}`, birdsX, 250, frame, true)
     strongBird.brain.load(json)
     
     gen = 'Loaded bird'

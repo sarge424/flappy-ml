@@ -1,5 +1,5 @@
 class Bird {
-    constructor(i, x, y, c){
+    constructor(i, x, y, c, bot = false){
         this.id = i
         this.p = new v2(x, y)
         
@@ -10,6 +10,8 @@ class Bird {
         this.jumpForce = 10
         this.kb = 0
         this.inp = 0
+
+        this.isLoaded = bot
 
         this.brain = new NeuralNetwork([3, 1])
 
@@ -28,6 +30,9 @@ class Bird {
         this.sprites.push([25,0,15,10])
         this.sprites.push([25,10,15,10])
         this.sprites.push([25,20,15,10])
+        this.sprites.push([41,0,15,10])
+        this.sprites.push([41,10,15,10])
+        this.sprites.push([41,20,15,10])
     }
 
     update(ctx){
@@ -73,10 +78,11 @@ class Bird {
 
     draw(ctx){
         let sprite = []
+        let offset = this.isLoaded? 3:0
         if(Math.abs(this.vy) < 3)
-            sprite = this.sprites[0]
+            sprite = this.sprites[0 + offset]
         else{
-            sprite = this.vy > 0 ? this.sprites[1]: this.sprites[2]
+            sprite = this.vy > 0 ? this.sprites[1 + offset]: this.sprites[2 + offset]
         }
 
         ctx.imageSmoothingEnabled = false
