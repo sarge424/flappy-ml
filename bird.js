@@ -3,7 +3,8 @@ class Bird {
         this.id = i
         this.p = new v2(x, y)
         
-        this.rad = 15
+        this.size = new v2(15, 10)
+
         this.vy = 0
         this.grav = 1
         this.jumpForce = 10
@@ -22,7 +23,11 @@ class Bird {
         this.score = 0
         this.fitness = 0
 
-        this.color = 'yellow'
+        this.img = document.getElementById('ss')
+        this.sprites = []
+        this.sprites.push([25,0,15,10])
+        this.sprites.push([25,10,15,10])
+        this.sprites.push([25,20,15,10])
     }
 
     update(ctx){
@@ -39,7 +44,7 @@ class Bird {
         this.vy = Math.min(this.vy + this.grav, 15)
         this.p.y += this.vy
 
-        if(this.p.y - this.rad <= 0 || this.p.y + this.rad >= arena.dim.y){
+        if(this.p.y - this.size.y <= 0 || this.p.y + this.size.y >= arena.dim.y){
             this.alive = false
         }
 
@@ -67,9 +72,17 @@ class Bird {
     }
 
     draw(ctx){
+        let sprite = []
+        if(Math.abs(this.vy) < 3)
+            sprite = this.sprites[0]
+        else{
+            sprite = this.vy > 0 ? this.sprites[1]: this.sprites[2]
+        }
+
+        ctx.imageSmoothingEnabled = false
+
         ctx.beginPath()
-        ctx.fillStyle = this.color
-        ctx.arc(...this.p.lst(), this.rad, 0, 2*Math.PI)
+        ctx.drawImage(this.img, ...sprite, ...this.p.sub(this.size).lst(), ...this.size.scl(2).lst())
         ctx.fill()
     }
 }
