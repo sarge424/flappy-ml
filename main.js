@@ -153,7 +153,7 @@ function loadBird(){
     strongBird.brain.load(json)
     
     gen = 'Loaded bird'
-    birds = []
+    birds = birds.filter(bird => bird.isLoaded)
     currentScore = 0
 
     birds.push(strongBird)
